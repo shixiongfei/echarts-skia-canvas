@@ -1,0 +1,48 @@
+{
+  "name": "echarts-skia-canvas",
+  "version": "1.0.0",
+  "description": "Running echarts on skia-canvas",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "tsc && node ./lib/test.js"
+  },
+  "keywords": [
+    "echarts",
+    "charts",
+    "plot",
+    "canvas",
+    "skia"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shixiongfei/echarts-skia-canvas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shixiongfei/echarts-skia-canvas/issues"
+  },
+  "homepage": "https://github.com/shixiongfei/echarts-skia-canvas#readme",
+  "author": "shixiongfei",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "jsdom": "^22.1.0",
+    "skia-canvas": "^1.0.1"
+  },
+  "peerDependencies": {
+    "echarts": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.1",
+    "@types/node": "^20.4.10",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.1",
+    "typescript": "^5.1.6"
+  }
+}
