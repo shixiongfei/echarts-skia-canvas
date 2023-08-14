@@ -1,4 +1,5 @@
 import { JSDOM } from "jsdom";
+import { Window } from "skia-canvas";
 
 const convertTypeQuality = (type, quality) => {
   switch (type) {
@@ -25,28 +26,33 @@ const convertTypeQuality = (type, quality) => {
   }
 };
 
-export function createCanvasElement(window) {
+export function createCanvasElement(canvas) {
   const dom = new JSDOM();
 
   dom.window.HTMLCanvasElement.prototype.getContext = (contextId) =>
-    window.canvas.getContext(contextId);
+    canvas.getContext(contextId);
 
   dom.window.HTMLCanvasElement.prototype.toDataURL = (type, quality) => {
     const [format, options] = convertTypeQuality(type, quality);
-    return window.canvas.toDataURLSync(format, options);
+    return canvas.toDataURLSync(format, options);
   };
 
   dom.window.HTMLCanvasElement.prototype.toBlob = (callback, type, quality) => {
     const [format, options] = convertTypeQuality(type, quality);
-    window.canvas
+    canvas
       .toBuffer(format, options)
       .then((buffer) => callback(new dom.window.Blob([buffer], { type })));
   };
 
   const element = dom.window.document.createElement("canvas");
 
-  element.width = window.width;
-  element.height = window.height;
+  element.width = canvas.width;
+  element.height = canvas.height;
 
   return element;
+}
+
+export function createCanvasWindowElement(options) {
+  const window = new Window(options);
+  return createCanvasElement(window.canvas);
 }

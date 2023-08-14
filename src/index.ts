@@ -1,7 +1,6 @@
 import * as echarts from "echarts";
 import { EChartsOption } from "echarts";
-import { Window } from "skia-canvas";
-import { createCanvasElement } from "./canvas.js";
+import { createCanvasWindowElement } from "./canvas.js";
 
 export type WindowOptions = {
   title?: string;
@@ -17,9 +16,7 @@ export const createEchartsWindow = (options: WindowOptions = {}) => {
   const { title, left, top, width = 800, height = 600 } = options;
   const { theme, locale } = options;
 
-  const window = new Window({ title, left, top, width, height });
-  const dom = createCanvasElement(window);
-
+  const dom = createCanvasWindowElement({ title, left, top, width, height });
   return echarts.init(dom, theme, { locale, renderer: "canvas" });
 };
 
