@@ -29,22 +29,22 @@ const convertTypeQuality = (type, quality) => {
 export function createCanvasElement(options) {
   const dom = new JSDOM();
   const window = new Window(options);
-  const canvas = window.canvas;
+  const element = dom.window.document.createElement("canvas");
+  const prototype = Object.getPrototypeOf(element);
 
-  dom.window.HTMLCanvasElement.prototype.getContext = (contextId) =>
-    canvas.getContext(contextId);
+  prototype.getContext = (contextId) => window.canvas.getContext(contextId);
 
-  dom.window.HTMLCanvasElement.prototype.toDataURL = (type, quality) => {
+  prototype.toDataURL = (type, quality) => {
     const [format, options] = convertTypeQuality(type, quality);
-    return canvas.toDataURLSync(format, options);
+    return window.canvas.toDataURLSync(format, options);
   };
 
-  dom.window.HTMLCanvasElement.prototype.toBlob = (callback, type, quality) => {
+  prototype.toBlob = (callback, type, quality) => {
     const [format, options] = convertTypeQuality(type, quality);
-    canvas
+    window.canvas
       .toBuffer(format, options)
       .then((buffer) => callback(new dom.window.Blob([buffer], { type })));
   };
 
-  return dom.window.document.createElement("canvas");
+  return element;
 }

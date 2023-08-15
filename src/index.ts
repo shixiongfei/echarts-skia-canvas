@@ -21,11 +21,19 @@ export const createEchartsWindow = (options: WindowOptions = {}) => {
   return echarts.init(dom, theme, { locale, width, height, renderer });
 };
 
+export const ploter = (options: WindowOptions = {}) => {
+  const chart = createEchartsWindow(options);
+
+  return (options: EChartsOption, clear = false) => {
+    if (clear) {
+      chart.clear();
+    }
+    chart.setOption(options);
+    return chart;
+  };
+};
+
 export const plot = (
   echartsOption: EChartsOption,
   windowOptions: WindowOptions = {},
-) => {
-  const chart = createEchartsWindow(windowOptions);
-  chart.setOption(echartsOption);
-  return chart;
-};
+) => ploter(windowOptions)(echartsOption);
