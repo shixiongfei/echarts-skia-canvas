@@ -1,6 +1,6 @@
 import * as echarts from "echarts";
 import { EChartsOption } from "echarts";
-import { createCanvasWindowElement } from "./canvas.js";
+import { createCanvasElement } from "./canvas.js";
 
 export type WindowOptions = {
   title?: string;
@@ -15,9 +15,10 @@ export type WindowOptions = {
 export const createEchartsWindow = (options: WindowOptions = {}) => {
   const { title, left, top, width = 800, height = 600 } = options;
   const { theme, locale } = options;
+  const renderer = "canvas";
 
-  const dom = createCanvasWindowElement({ title, left, top, width, height });
-  return echarts.init(dom, theme, { locale, renderer: "canvas" });
+  const dom = createCanvasElement({ title, left, top, width, height });
+  return echarts.init(dom, theme, { locale, width, height, renderer });
 };
 
 export const plot = (

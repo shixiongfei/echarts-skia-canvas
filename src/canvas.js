@@ -26,8 +26,10 @@ const convertTypeQuality = (type, quality) => {
   }
 };
 
-export function createCanvasElement(canvas) {
+export function createCanvasElement(options) {
   const dom = new JSDOM();
+  const window = new Window(options);
+  const canvas = window.canvas;
 
   dom.window.HTMLCanvasElement.prototype.getContext = (contextId) =>
     canvas.getContext(contextId);
@@ -44,15 +46,5 @@ export function createCanvasElement(canvas) {
       .then((buffer) => callback(new dom.window.Blob([buffer], { type })));
   };
 
-  const element = dom.window.document.createElement("canvas");
-
-  element.width = canvas.width;
-  element.height = canvas.height;
-
-  return element;
-}
-
-export function createCanvasWindowElement(options) {
-  const window = new Window(options);
-  return createCanvasElement(window.canvas);
+  return dom.window.document.createElement("canvas");
 }
