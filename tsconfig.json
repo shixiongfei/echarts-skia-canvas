@@ -9,7 +9,6 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "allowJs": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
     "sourceMap": true,
