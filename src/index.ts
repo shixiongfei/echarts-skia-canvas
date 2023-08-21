@@ -21,7 +21,7 @@ export const createEchartsWindow = (options: WindowOptions = {}) => {
   return echarts.init(dom, theme, { locale, width, height, renderer });
 };
 
-export const ploter = (options: WindowOptions = {}) => {
+export const plotter = (options: WindowOptions = {}) => {
   const chart = createEchartsWindow(options);
 
   return (options: EChartsOption, clear = false) => {
@@ -36,4 +36,4 @@ export const ploter = (options: WindowOptions = {}) => {
 export const plot = (
   echartsOption: EChartsOption,
   windowOptions: WindowOptions = {},
-) => ploter(windowOptions)(echartsOption);
+) => plotter(windowOptions)(echartsOption);
